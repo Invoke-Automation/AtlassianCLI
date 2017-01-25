@@ -144,7 +144,12 @@ function New-JIRAIssue {
 								watches { # Watchers
 									$name = 'Watchers'
 									if($issue.fields."$_".self){
-										$value = ((Invoke-APIRequest -Method 'GET' -Session $Session -Uri $issue.fields."$_".self).watchers.self | New-JIRAUser)
+										$watches = (Invoke-APIRequest -Method 'GET' -Session $Session -Uri $issue.fields."$_".self)
+										if($watches.watchers.self) {
+											$value = (.watchers.self | New-JIRAUser)
+										} else {
+											$value = $null
+										}
 									} else {
 										$value = $null
 									}
@@ -200,7 +205,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = $null
+										$value = [TimeSpan]0
 									}
 									$properties.Add($name,$value)
 								}
@@ -209,7 +214,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = $null
+										$value = [TimeSpan]0
 									}
 									$properties.Add($name,$value)
 								}
@@ -218,7 +223,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = $null
+										$value = [TimeSpan]0
 									}
 									$properties.Add($name,$value)
 								}
