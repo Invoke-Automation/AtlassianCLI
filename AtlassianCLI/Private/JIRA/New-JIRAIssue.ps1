@@ -205,7 +205,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = [TimeSpan]0
+										$value = $null
 									}
 									$properties.Add($name,$value)
 								}
@@ -214,7 +214,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = [TimeSpan]0
+										$value = $null
 									}
 									$properties.Add($name,$value)
 								}
@@ -223,7 +223,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_"){
 										$value = [TimeSpan]::FromSeconds($issue.fields."$_")
 									} else {
-										$value = [TimeSpan]0
+										$value = $null
 									}
 									$properties.Add($name,$value)
 								}
