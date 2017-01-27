@@ -7,7 +7,7 @@ class JIRAComponent : AtlassianObject {
 	[System.String] $Name
 	[System.String] $Description
 
-	[System.Boolean] $IsAssigneeTypeValid
+	[System.Nullable[System.Boolean]] $IsAssigneeTypeValid
 
 	[System.String] ToString(){
 		return $this.Name
@@ -17,7 +17,7 @@ class JIRAIssueType : AtlassianObject {
 	[System.String] $Id
 	[System.String] $Name
 	[System.String] $Description
-	[System.Boolean] $IsSubTask
+	[System.Nullable[System.Boolean]] $IsSubTask
 
 	[System.String] $AvatarId
 	[System.String] $IconUrl
@@ -31,7 +31,7 @@ class JIRAUser : AtlassianObject {
 	[System.String] $Name
 	[System.String] $DisplayName
 
-	[System.Boolean] $IsActive
+	[System.Nullable[System.Boolean]] $IsActive
 	#[System.String[]] $AvatarUrls
 
 	[System.String] ToString(){
@@ -46,10 +46,10 @@ class JIRAVersion : AtlassianObject {
 	[System.Boolean] $IsArchived
 	[System.String] $IsReleased
 
-	[System.DateTime] $StartDate
-	[System.DateTime] $ReleaseDate
-	[System.DateTime] $UserStartDate
-	[System.DateTime] $UserReleaseDate
+	[System.Nullable[System.DateTime]] $StartDate
+	[System.Nullable[System.DateTime]] $ReleaseDate
+	[System.Nullable[System.DateTime]] $UserStartDate
+	[System.Nullable[System.DateTime]] $UserReleaseDate
 
 	[System.String] $ProjectId
 
@@ -92,9 +92,9 @@ class JIRAIssue : AtlassianObject {
 	[JIRAIssueWorklog[]] $WorkLog
 	[JIRAIssueComment[]] $Comments
 	[JIRAIssue[]] $SubTasks
-	[TimeSpan] $TimeSpent
-	[TimeSpan] $TotalTimeSpent
-	[TimeSpan] $RemainingEstimate
+	[System.Nullable[TimeSpan]] $TimeSpent
+	[System.Nullable[TimeSpan]] $TotalTimeSpent
+	[System.Nullable[TimeSpan]] $RemainingEstimate
 	[System.String] $Status
 	[System.String] $Priority
 	[System.String] $Flagged
@@ -113,10 +113,10 @@ class JIRAIssueWorklog : AtlassianObject {
 	[JIRAUser] $Author
 	[JIRAUser] $UpdateAuthor
 	[System.String] $Comment
-	[System.DateTime] $Created
-	[System.DateTime] $Updated
-	[System.DateTime] $Started
-	[Timespan] $TimeSpent
+	[System.Nullable[System.DateTime]] $Created
+	[System.Nullable[System.DateTime]] $Updated
+	[System.Nullable[System.DateTime]] $Started
+	[System.Nullable[TimeSpan]] $TimeSpent
 
 	[System.String] ToString(){
 		return ("{0}: {1} ({2:HH\:mm\:ss})" -f $this.Author.DisplayName,$this.Comment,$this.TimeSpent)
@@ -127,8 +127,8 @@ class JIRAIssueComment : AtlassianObject {
 	[JIRAUser] $Author
 	[JIRAUser] $UpdateAuthor
 	[System.String] $Body
-	[System.DateTime] $Created
-	[System.DateTime] $Updated
+	[System.Nullable[System.DateTime]] $Created
+	[System.Nullable[System.DateTime]] $Updated
 
 	[System.String] ToString(){
 		return ("{0}: {1}" -f $this.Author.DisplayName,$this.Body)
