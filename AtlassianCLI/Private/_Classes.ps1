@@ -92,6 +92,8 @@ class JIRAIssue : AtlassianObject {
 	[JIRAIssueWorklog[]] $WorkLog
 	[JIRAIssueComment[]] $Comments
 	[JIRAIssue[]] $SubTasks
+	[System.String] $Summary
+	[System.String] $Description
 	[System.Nullable[TimeSpan]] $TimeSpent
 	[System.Nullable[TimeSpan]] $TotalTimeSpent
 	[System.Nullable[TimeSpan]] $RemainingEstimate

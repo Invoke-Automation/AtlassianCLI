@@ -146,7 +146,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_".self){
 										$watches = (Invoke-APIRequest -Method 'GET' -Session $Session -Uri $issue.fields."$_".self)
 										if($watches.watchers.self) {
-											$value = (.watchers.self | New-JIRAUser)
+											$value = ($watches.watchers.self | New-JIRAUser)
 										} else {
 											$value = $null
 										}
@@ -199,6 +199,25 @@ function New-JIRAIssue {
 									}
 									$properties.Add($name,$value)
 								}
+								# Free text fields
+								summary { # Summary
+									$name = 'Summary'
+									if($issue.fields."$_"){
+										$value = $issue.fields."$_"
+									} else {
+										$value = $null
+									}
+									$properties.Add($name,$value)
+								}
+								description { # Description
+									$name = 'Description'
+									if($issue.fields."$_"){
+										$value = $issue.fields."$_"
+									} else {
+										$value = $null
+									}
+									$properties.Add($name,$value)
+								}
 								# Specials
 								timespent { # Time Spent
 									$name = 'TimeSpent'
@@ -239,7 +258,7 @@ function New-JIRAIssue {
 								priority { # Priority
 									$name = 'Priority'
 									if($issue.fields."$_".name){
-										$value = $issue.fields."$_".name
+										$value = $issue.fields."$_"
 									} else {
 										$value = $null
 									}
@@ -248,7 +267,7 @@ function New-JIRAIssue {
 								customfield_10000 { # Flagged
 									$name = 'Flagged'
 									if($issue.fields."$_".value){
-										$value = $issue.fields."$_".value
+										$value = $issue.fields."$_"
 									} else {
 										$value = $null
 									}
