@@ -24,6 +24,11 @@ function Get-JIRAIssue {
 	Param(
 		[Parameter(
 			Mandatory = $true,
+			ParameterSetName = 'Key'
+		)]
+		[String] $Key,
+		[Parameter(
+			Mandatory = $true,
 			ParameterSetName = 'JQL'
 		)]
 		[String] $Jql,
@@ -44,23 +49,32 @@ function Get-JIRAIssue {
 		}
 	}
 	Process{
-		if($JQL){
+		if($Key){
+			$method = 'GET'
+			$uri = ('/rest/api/latest/issue/{0}' -f $Key)
+			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
+			if($requestResult -ne $null){
+				New-JIRAIssue -Uri $requestResult.self
+			} else {
+				$null
+			}
+		} elseif($JQL){
 			$method = 'GET'
 			$uriTemplate = '/rest/api/latest/search?jql={0}&startAt=0&maxResults={1}'
 			$totalIssues = (Invoke-APIRequest -Method $method -Uri ($uriTemplate -f (Format-Jql $Jql),1) -Session $Session).total
 			if($totalIssues -gt 0){
 				$uri = ('/rest/api/latest/search?jql={0}&startAt=0&maxResults={1}' -f (Format-Jql $Jql),$totalIssues)
 				$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
-			}		
-		}
-		if($requestResult -ne $null){
-			$output = @()
-			foreach($obj in $requestResult.issues) {
-				$output += New-JIRAIssue -Uri $obj.self
 			}
-			$output
-		} else {
-			throw 'No result for request'
+			if($requestResult -ne $null){
+				$output = @()
+				foreach($obj in $requestResult.issues) {
+					$output += New-JIRAIssue -Uri $obj.self
+				}
+				$output
+			} else {
+				$null
+			}
 		}
 	}
 	End{}
