@@ -1,37 +1,32 @@
 function Get-JIRAProject {
 	<#
-	.SYNOPSIS
-		Get one or more JIRAProject objects.
-
-	.DESCRIPTION
-		The Get-JIRAProject cmdlet gets a specified JIRAProject object or performs a search to get multiple JIRAProject objects.
-	
-	.PARAMETER Key
-		Specifies the key to be used to retrieve the JIRAProject object.
-	
-	.PARAMETER Name
-		Specifies the full name or a part of the name used to retrieve the JIRAProject object(s).
-	
-	.PARAMETER All
-		Specifies if you want to retrieve all JIRAProjects available to the specified AtlassianSession.
-
-	.PARAMETER Session
-		Specifies the AtlassianSession to use to perform this task.
-		If none is specified Get-AtlassianSession is called.
-	
-	.EXAMPLE
-		Get all projects that have 'Test' in their name using the already imported AtlassianSession
-		Get-JIRAProject -Name 'Test'
-	
-	.INPUTS
-		None
-
-	.OUTPUTS
-		JIRAProject
-		Returns one or more JIRAProject objects.
+		.SYNOPSIS
+			Get one or more JIRAProject objects.
+		.DESCRIPTION
+			The Get-JIRAProject cmdlet gets a specified JIRAProject object or performs a search to get multiple JIRAProject objects.
+		.PARAMETER Key
+			Specifies the key to be used to retrieve the JIRAProject object(s).
+		.PARAMETER Name
+			Specifies the full name or a part of the name used to retrieve the JIRAProject object(s).
+		.PARAMETER All
+			Specifies if you want to retrieve all JIRAProjects available to the specified AtlassianSession.
+		.PARAMETER Session
+			Specifies the AtlassianSession to use to perform this task.
+			If none is specified Get-AtlassianSession is called.
+		.EXAMPLE
+			PS C:\> Get-JIRAProject -Name 'Test'
+			Get all projects that have 'Test' in their name using the already imported AtlassianSession
+		.INPUTS
+			None
+			You cannot pipe input to this cmdlet.
+		.OUTPUTS
+			JIRAProject
+			Returns one or more JIRAProject objects.
+		.NOTES
 	#>
 	[CmdletBinding(
-		#SupportsShouldProcess=$true
+		#SupportsShouldProcess=$true,
+		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Get-JIRAProject.md"
 	)]
 	Param(
 		[Parameter(

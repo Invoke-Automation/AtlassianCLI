@@ -1,25 +1,30 @@
 function Get-JIRAIssue {
 	<#
-	.SYNOPSIS
-		Get a Jira Issue using the Invoke-JIRAExpression
-
-	.DESCRIPTION
-		#ToDo
-	
-	.PARAMETER Jql
-		#ToDo
-	
-	.PARAMETER Session
-		#ToDo
-	
-	.EXAMPLE
-		#ToDo
-
-	.OUTPUTS
-		System.Management.Automation.PSObject
+		.SYNOPSIS
+			Get one or more JIRAIssue objects.
+		.DESCRIPTION
+			The Get-JIRAIssue cmdlet gets a specified JIRAIssue object or performs a search to get multiple JIRAIssue objects.
+		.PARAMETER Key
+			Specifies the key to be used to retrieve the JIRAIssue object(s).
+		.PARAMETER Jql
+			Specifies the JQL filter to be used to retrieve the JIRAIssue object(s).
+		.PARAMETER Session
+			Specifies the AtlassianSession to use to perform this task.
+			If none is specified Get-AtlassianSession is called.
+		.EXAMPLE
+			PS C:\> Get-JIRAIssue -Jql 'project=TEST'
+			Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
+		.INPUTS
+			None
+			You cannot pipe input to this cmdlet.
+		.OUTPUTS
+			JIRAIssue
+			Returns one or more JIRAIssue objects.
+		.NOTES
 	#>
 	[CmdletBinding(
-		#SupportsShouldProcess=$true
+		#SupportsShouldProcess=$true,
+		HelpURI='https://github.com/Invoke-Automation/AtlassianCLI/Get-JIRAIssue.md'
 	)]
 	Param(
 		[Parameter(

@@ -1,56 +1,62 @@
 function Add-JIRAIssue {
 	<#
-	.SYNOPSIS
-		Create a Jira Issue
-
-	.DESCRIPTION
-		#ToDo
-	
-	.PARAMETER Project
-		#ToDo
-	
-	.PARAMETER IssueType
-		#ToDo
-	
-	.PARAMETER Reporter
-		#ToDo
-	
-	.PARAMETER Assignee
-		#ToDo
-	
-	.PARAMETER Version
-		#ToDo
-	
-	.PARAMETER FixVersion
-		#ToDo
-	
-	.PARAMETER Components
-		#ToDo
-	
-	.PARAMETER RemainingEstimate
-		#ToDo
-	
-	.PARAMETER Priority
-		#ToDo
-	
-	.PARAMETER Flaged
-		#ToDo
-	
-	.PARAMETER ParentTask
-		#ToDo
-	
-	.PARAMETER Session
-		#ToDo
-	
-	.EXAMPLE
-		#ToDo
-
-	.OUTPUTS
-		System.Management.Automation.PSObject
+		.SYNOPSIS
+			Creates a new JIRA issue
+		.DESCRIPTION
+			The Add-JIRAIssue cmdlet  gets a specified JIRAIssue object or performs a search to get multiple JIRAIssue objects.
+		.PARAMETER Project
+			Specifies the JIRAProject in which the issue should be created.
+		.PARAMETER ProjectKey
+			Specifies the key of the JIRA project in which the issue should be created.
+		.PARAMETER IssueType
+			Specifies the name of the issue type for the new JIRA issue
+		.PARAMETER Summary
+			Specifies the summary for for the new JIRA issue
+		.PARAMETER Description
+			Specifies the description for for the new JIRA issue
+		.PARAMETER Reporter
+			Specifies the account name of the reporter for for the new JIRA issue
+		.PARAMETER Assignee
+			Specifies the account name of the assignee for for the new JIRA issue
+		.PARAMETER Versions
+			Specifies the (list of) affected version(s) for for the new JIRA issue
+		.PARAMETER FixVersions
+			Specifies the (list of) fix version(s) for for the new JIRA issue
+		.PARAMETER Components
+			Specifies the (list of) component(s) for for the new JIRA issue
+		.PARAMETER TimeEstimate
+			Specifies the estimated time for for the new JIRA issue
+		.PARAMETER Priority
+			Specifies the name of the priority for for the new JIRA issue
+		.PARAMETER ParentTaskKey
+			Specifies the key of the parent task for for the new JIRA issue
+			This should only be specified for issuetypes that are sub-tasks
+		.PARAMETER Properties
+			Specifies the (list of) extra propertie(s) for for the new JIRA issue
+		.PARAMETER Session
+			Specifies the AtlassianSession to use to perform this task.
+			If none is specified Get-AtlassianSession is called.
+		.EXAMPLE
+			PS C:\> Add-JIRAIssue -ProjectKey 'TEST' -IssueType 'Task' -Summary 'Task Test' -Description 'My first task'
+			Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
+		.EXAMPLE
+			PS C:\> Add-JIRAIssue -Project $project -IssueType 'Task' -Summary 'Big Test' -Description 'Big Issue' -Assignee 'Test' -Priority 'Highest' -FixVersions 'Test Version' -Components 'Test Component' -TimeEstimate (New-TimeSpan -Hours 1) -Properties @{labels=@('test','demo')}
+			Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
+		.EXAMPLE
+			PS C:\> Add-JIRAIssue -ProjectKey 'TEST' -IssueType 'Sub-task' -Summary 'Sub-Task Test' -Description 'Smaller issue' -Reporter 'Test' -Assignee 'Test' -Priority 'Low' -Versions 'Test Version' -ParentTaskKey $createdTask.key -Properties @{labels=@('uber')}
+			Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
+		.INPUTS
+			None
+			You cannot pipe input to this cmdlet.
+		.OUTPUTS
+			JIRAIssue
+			Returns one or more JIRAIssue objects.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		DefaultParameterSetName = 'ProjectName'
+		DefaultParameterSetName = 'ProjectName',
+		HelpURI='https://github.com/Invoke-Automation/AtlassianCLI/Add-JIRAIssue.md'
 	)]
 	Param(
 		[Parameter(
@@ -103,10 +109,6 @@ function Add-JIRAIssue {
 			Mandatory = $false
 		)]
 		[System.String] $Priority,
-		[Parameter(
-			Mandatory = $false
-		)]
-		[System.String] $Flagged,
 		[Parameter(
 			Mandatory = $false
 		)]
