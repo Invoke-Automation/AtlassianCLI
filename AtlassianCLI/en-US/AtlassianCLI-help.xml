@@ -442,40 +442,25 @@
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-AtlassianSession</command:name>
 <command:verb>Get</command:verb>
 <command:noun>AtlassianSession</command:noun>
-<maml:description><maml:para>Get the current AtlassianSession or creates a new one if none exists
+<maml:description><maml:para>Get one or more JIRAIssue objects.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>
+<maml:description><maml:para>The Get-AtlassianSession cmdlet gets the current AtlassianSession loaded in the custom session variable (name specified in settings.xml) or creates a new one if none exists.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Get-AtlassianSession</maml:name>
-</command:syntaxItem>
-</command:syntax>
-<command:parameters></command:parameters>
-<command:inputTypes></command:inputTypes>
-<command:returnValues></command:returnValues>
-<maml:alertSet><maml:alert></maml:alert>
-</maml:alertSet>
-<command:examples></command:examples>
-<command:relatedLinks></command:relatedLinks>
-</command:command>
-<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-<command:details><command:name>ToDo</command:name>
-<command:verb>ToDo</command:verb>
-<command:noun></command:noun>
-<maml:description></maml:description>
-</command:details>
-<maml:description></maml:description>
-<command:syntax><command:syntaxItem><maml:name>ToDo</maml:name>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>{{Fill Path Description}}
+<maml:Description><maml:para>Specifies the path to the encrypted session file to import. An encrypted session file can only be loaded by the same user account that saved it.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -484,7 +469,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="NoNew"><maml:name>NoNewSession</maml:name>
-<maml:Description><maml:para>{{Fill NoNewSession Description}}
+<maml:Description><maml:para>Specifies you do not want to save the AtlassianSession into the custom session variable.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -494,7 +479,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>{{Fill Path Description}}
+<maml:Description><maml:para>Specifies the path to the encrypted session file to import. An encrypted session file can only be loaded by the same user account that saved it.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -503,7 +488,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="NoNew"><maml:name>NoNewSession</maml:name>
-<maml:Description><maml:para>{{Fill NoNewSession Description}}
+<maml:Description><maml:para>Specifies you do not want to save the AtlassianSession into the custom session variable.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -512,26 +497,35 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 </command:parameters>
-<command:inputTypes></command:inputTypes>
-<command:returnValues><command:returnValue><dev:type><maml:name>AtlassianSession</maml:name>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
 </dev:type>
-<maml:description><maml:para>
+<maml:description><maml:para>You cannot pipe input to this cmdlet.
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>JIRAIssue</maml:name>
+</dev:type>
+<maml:description><maml:para>Returns one or more JIRAIssue objects.
 </maml:para>
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>
+<maml:alertSet><maml:alert><maml:para>The AtlassianSession object has a Save(&lt;Path&gt;) method that can be called to save an encrypted session file to disk. Encrypted session files can only be used by the same user account.
 </maml:para>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-<dev:code>#ToDo</dev:code>
-<dev:remarks><maml:para>
+<dev:code>Get-JIRAIssue -Jql 'project=TEST'</dev:code>
+<dev:remarks><maml:para>Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
 </maml:para>
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-JIRAIssue</command:name>
@@ -638,7 +632,10 @@
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-JIRAProject</command:name>
@@ -773,40 +770,25 @@
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>New-AtlassianSession</command:name>
 <command:verb>New</command:verb>
 <command:noun>AtlassianSession</command:noun>
-<maml:description><maml:para>Creates a new AtlassianSession object and saves it in a session variable
+<maml:description><maml:para>Initialises a new AtlassianSession
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>
+<maml:description><maml:para>The New-AtlassianSession cmdlet creates a new AtlassianSession object. If no current AtlassianSession is saved in the custom session variable (name specified in settings.xml) the newly created AtlassianSession will be saved in this variable. If the custom session variable already has a value you will be prompted whether or not you want to replace it.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-AtlassianSession</maml:name>
-</command:syntaxItem>
-</command:syntax>
-<command:parameters></command:parameters>
-<command:inputTypes></command:inputTypes>
-<command:returnValues></command:returnValues>
-<maml:alertSet><maml:alert></maml:alert>
-</maml:alertSet>
-<command:examples></command:examples>
-<command:relatedLinks></command:relatedLinks>
-</command:command>
-<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-<command:details><command:name>ToDo</command:name>
-<command:verb>ToDo</command:verb>
-<command:noun></command:noun>
-<maml:description></maml:description>
-</command:details>
-<maml:description></maml:description>
-<command:syntax><command:syntaxItem><maml:name>ToDo</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Server</maml:name>
-<maml:Description><maml:para>The Server to be used for the session
+<maml:Description><maml:para>Specifies the Server URL to be used for the session.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -815,7 +797,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>The Credential to be used for the session
+<maml:Description><maml:para>Specifies the Credentials to be used for the session.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -842,7 +824,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Server</maml:name>
-<maml:Description><maml:para>The Server to be used for the session
+<maml:Description><maml:para>Specifies the Server URL to be used for the session.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -851,7 +833,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>The Credential to be used for the session
+<maml:Description><maml:para>Specifies the Credentials to be used for the session.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -878,25 +860,34 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 </command:parameters>
-<command:inputTypes></command:inputTypes>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>You cannot pipe input to this cmdlet.
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
 <command:returnValues><command:returnValue><dev:type><maml:name>AtlassianSession</maml:name>
 </dev:type>
-<maml:description><maml:para>
+<maml:description><maml:para>Returns the newly created AtlassianSession object. (even if it is not saved)
 </maml:para>
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>
+<maml:alertSet><maml:alert><maml:para>The AtlassianSession object has a Save(&lt;Path&gt;) method that can be called to save an encrypted session file to disk. Encrypted session files can only be used by the same user account.
 </maml:para>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-<dev:code>#ToDo</dev:code>
-<dev:remarks><maml:para>
+<dev:code>New-AtlassianSession -Server 'http://localhost:2990/jira'</dev:code>
+<dev:remarks><maml:para>Creates a new AtlassianSession that connects to the jira test environment running on your localhost. Credentials will be prompted.
 </maml:para>
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 </helpItems>

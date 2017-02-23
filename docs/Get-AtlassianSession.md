@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: 
+online version: "https://github.com/Invoke-Automation/AtlassianCLI/Get-AtlassianSession.md"
 schema: 2.0.0
 ---
 
