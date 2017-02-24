@@ -53,15 +53,15 @@ function Get-JIRAProject {
 	Process{
 		if($Key){
 			$method = 'GET'
-			$uri = ('/rest/api/latest/project/{0}' -f $Key)
+			$uri = ('{0}/project/{1}' -f $SETTINGS.API.Uri,$Key)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
 		} elseif($Name){
 			$method = 'GET'
-			$uri = '/rest/api/latest/project/'
+			$uri = ('{0}/project/' -f $SETTINGS.API.Uri)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session | Where-Object{$_.Name -like ('*{0}*' -f $Name)}
 		} elseif($All){
 			$method = 'GET'
-			$uri = '/rest/api/latest/project/'
+			$uri = ('{0}/project/' -f $SETTINGS.API.Uri)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
 		}
 		if($requestResult -ne $null){

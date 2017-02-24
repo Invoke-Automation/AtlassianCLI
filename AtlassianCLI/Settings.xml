@@ -7,4 +7,7 @@
 		<DateTimeStringPattern>^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}([\+\-][0-9]{2}(:)?[0-9]{2})?$</DateTimeStringPattern>
 		<DateTimeStringFormat>yyyy-MM-ddTHH\:mm\:ss.fffzzz</DateTimeStringFormat>
 	</Atlassian>
+	<API>
+		<Uri>/rest/api/2</Uri>
+	</API>
 </Settings>

@@ -105,7 +105,7 @@ function New-JIRAProject {
 					Mandatory = $true
 				)][System.String] $Key
 			)
-			('/rest/api/latest/project/{0}' -f $Key)
+			('{0}/project/{1}' -f $SETTINGS.API.Uri,$Key)
 		}
 	}
 	Process{
