@@ -1,25 +1,32 @@
 function New-AtlassianSession {
 	<#
-	.SYNOPSIS
-		Creates a new AtlassianSession object and saves it in a session variable
-
-	.DESCRIPTION
-		#ToDo
-	
-	.PARAMETER Server
-		The Server to be used for the session
-	
-	.PARAMETER Credential
-		The Credential to be used for the session
-	
-	.EXAMPLE
-		#ToDo
-
-	.OUTPUTS
-		AtlassianSession
+		.SYNOPSIS
+			Initialises a new AtlassianSession
+		.DESCRIPTION
+			The New-AtlassianSession cmdlet creates a new AtlassianSession object.
+			If no current AtlassianSession is saved in the custom session variable (name specified in settings.xml) the newly created AtlassianSession will be saved in this variable.
+			If the custom session variable already has a value you will be prompted whether or not you want to replace it.
+		.PARAMETER Server
+			Specifies the Server URL to be used for the session.
+		.PARAMETER Credential
+			Specifies the Credentials to be used for the session.
+		.EXAMPLE
+			PS C:\> New-AtlassianSession -Server 'http://localhost:2990/jira'
+			Creates a new AtlassianSession that connects to the jira test environment running on your localhost.
+			Credentials will be prompted.
+		.INPUTS
+			None
+			You cannot pipe input to this cmdlet.
+		.OUTPUTS
+			AtlassianSession
+			Returns the newly created AtlassianSession object. (even if it is not saved)
+		.NOTES
+			The AtlassianSession object has a Save(<Path>) method that can be called to save an encrypted session file to disk.
+			Encrypted session files can only be used by the same user account.
 	#>
 	[CmdletBinding(
-		SupportsShouldProcess = $true
+		SupportsShouldProcess = $true,
+		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/New-AtlassianSession.md"
 	)]
 	Param(
 		[Parameter(

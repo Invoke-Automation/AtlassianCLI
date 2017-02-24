@@ -1,18 +1,31 @@
 function Get-AtlassianSession {
 	<#
-	.SYNOPSIS
-		Get the current AtlassianSession or creates a new one if none exists
-
-	.DESCRIPTION
-		#ToDo
-	
-	.EXAMPLE
-		#ToDo
-
-	.OUTPUTS
-		AtlassianSession
+		.SYNOPSIS
+			Get one or more JIRAIssue objects.
+		.DESCRIPTION
+			The Get-AtlassianSession cmdlet gets the current AtlassianSession loaded in the custom session variable (name specified in settings.xml) or creates a new one if none exists.
+		.PARAMETER Path
+			Specifies the path to the encrypted session file to import.
+			An encrypted session file can only be loaded by the same user account that saved it.
+		.PARAMETER NoNewSession
+			Specifies you do not want to save the AtlassianSession into the custom session variable.
+		.EXAMPLE
+			PS C:\> Get-JIRAIssue -Jql 'project=TEST'
+			Gets all issues returned by the JQL filter 'project=TEST' for the currently loaded session.
+		.INPUTS
+			None
+			You cannot pipe input to this cmdlet.
+		.OUTPUTS
+			JIRAIssue
+			Returns one or more JIRAIssue objects.
+		.NOTES
+			The AtlassianSession object has a Save(<Path>) method that can be called to save an encrypted session file to disk.
+			Encrypted session files can only be used by the same user account.
 	#>
-	[CmdletBinding()]
+	[CmdletBinding(
+		#SupportsShouldProcess=$true,
+		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Get-AtlassianSession.md"
+	)]
 	Param(
 		[Parameter(
 			Mandatory = $false,

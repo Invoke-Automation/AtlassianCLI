@@ -2,30 +2,23 @@ function New-JIRAIssue {
 	<#
 		.SYNOPSIS
 			Creates a JIRAIssue objects.
-
 		.DESCRIPTION
 			The New-JIRAIssue cmdlet creates a JIRAIssue object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAIssue object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAIssue object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAIssue -Uri '/rest/api/latest/issue/10000' -Session $Session
+			Gets the issue with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAIssue object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAIssue
 			Returns a JIRAIssue object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -146,7 +139,7 @@ function New-JIRAIssue {
 									if($issue.fields."$_".self){
 										$watches = (Invoke-APIRequest -Method 'GET' -Session $Session -Uri $issue.fields."$_".self)
 										if($watches.watchers.self) {
-											$value = (.watchers.self | New-JIRAUser)
+											$value = ($watches.watchers.self | New-JIRAUser)
 										} else {
 											$value = $null
 										}
@@ -199,6 +192,25 @@ function New-JIRAIssue {
 									}
 									$properties.Add($name,$value)
 								}
+								# Free text fields
+								summary { # Summary
+									$name = 'Summary'
+									if($issue.fields."$_"){
+										$value = $issue.fields."$_"
+									} else {
+										$value = $null
+									}
+									$properties.Add($name,$value)
+								}
+								description { # Description
+									$name = 'Description'
+									if($issue.fields."$_"){
+										$value = $issue.fields."$_"
+									} else {
+										$value = $null
+									}
+									$properties.Add($name,$value)
+								}
 								# Specials
 								timespent { # Time Spent
 									$name = 'TimeSpent'
@@ -239,7 +251,7 @@ function New-JIRAIssue {
 								priority { # Priority
 									$name = 'Priority'
 									if($issue.fields."$_".name){
-										$value = $issue.fields."$_".name
+										$value = $issue.fields."$_"
 									} else {
 										$value = $null
 									}
@@ -248,7 +260,7 @@ function New-JIRAIssue {
 								customfield_10000 { # Flagged
 									$name = 'Flagged'
 									if($issue.fields."$_".value){
-										$value = $issue.fields."$_".value
+										$value = $issue.fields."$_"
 									} else {
 										$value = $null
 									}
