@@ -2,30 +2,23 @@ function New-JIRAComponent {
 	<#
 		.SYNOPSIS
 			Creates a JIRAComponent objects.
-
 		.DESCRIPTION
 			The New-JIRAComponent cmdlet creates a JIRAComponent object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAComponent object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAComponent object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAComponent -Uri '/rest/api/2/component/10000' -Session $Session
+			Gets the component with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAComponent object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAComponent
 			Returns a JIRAComponent object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

@@ -2,30 +2,23 @@ function New-JIRAVersion {
 	<#
 		.SYNOPSIS
 			Creates a JIRAVersion objects.
-
 		.DESCRIPTION
 			The New-JIRAVersion cmdlet creates a JIRAVersion object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAVersion object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAVersion object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAVersion -Uri '/rest/api/2/version/10000' -Session $Session
+			Gets the version with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAVersion object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAVersion
 			Returns a JIRAVersion object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -58,10 +51,10 @@ function New-JIRAVersion {
 						Description = $_.description
 						IsArchived = [System.Boolean]$_.archived
 						IsReleased = [System.Boolean]$_.released
-						StartDate = [System.DateTime]$_.startDate
-						ReleaseDate = [System.DateTime]$_.releaseDate
-						UserStartDate = [System.DateTime]$_.userStartDate
-						UserReleaseDate = [System.DateTime]$_.userReleaseDate
+						StartDate = [System.Nullable[System.DateTime]]$_.startDate
+						ReleaseDate = [System.Nullable[System.DateTime]]$_.releaseDate
+						UserStartDate = [System.Nullable[System.DateTime]]$_.userStartDate
+						UserReleaseDate = [System.Nullable[System.DateTime]]$_.userReleaseDate
 						ProjectId = $_.projectId
 					}
 				}

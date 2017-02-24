@@ -2,30 +2,23 @@ function New-JIRAIssue {
 	<#
 		.SYNOPSIS
 			Creates a JIRAIssue objects.
-
 		.DESCRIPTION
 			The New-JIRAIssue cmdlet creates a JIRAIssue object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAIssue object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAIssue object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAIssue -Uri '/rest/api/latest/issue/10000' -Session $Session
+			Gets the issue with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAIssue object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAIssue
 			Returns a JIRAIssue object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

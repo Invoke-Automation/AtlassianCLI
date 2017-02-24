@@ -2,30 +2,23 @@ function New-JIRAIssueComment {
 	<#
 		.SYNOPSIS
 			Creates a JIRAIssueComment objects.
-
 		.DESCRIPTION
 			The New-JIRAIssueComment cmdlet creates a JIRAIssueComment object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAIssueComment object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAIssueComment object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAIssueComment -Uri '/rest/api/2/issue/10000/comment/10100' -Session $Session
+			Gets the comment with id 10100 for the issue with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAIssueComment object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAIssueComment
 			Returns a JIRAIssueComment object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
