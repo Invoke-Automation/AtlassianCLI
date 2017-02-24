@@ -56,7 +56,7 @@ function Add-JIRAIssue {
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
 		DefaultParameterSetName = 'ProjectName',
-		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Add-JIRAIssue.md"
+		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Add-JIRAIssue"
 	)]
 	Param(
 		[Parameter(
