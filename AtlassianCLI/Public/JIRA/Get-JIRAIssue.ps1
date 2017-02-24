@@ -24,7 +24,7 @@ function Get-JIRAIssue {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Get-JIRAIssue.md"
+		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAIssue"
 	)]
 	Param(
 		[Parameter(
