@@ -2,23 +2,20 @@ function ConvertFrom-AtlassianDateTime {
 	<#
 		.SYNOPSIS
 			Creates a DateTime objects.
-
 		.DESCRIPTION
 			The Convert-AtlassianDateTime cmdlet creates a DateTime object based on specified input.
-		
 		.PARAMETER InputObject
 			Specifies the string to be used to retrieve the DateTime object.
-		
 		.EXAMPLE
-			#ToDo
-		
+			PS C:\> ConvertFrom-AtlassianDateTime -InputObject '2017-02-24T13:26:32.482+01:00'
+			Friday, February 24, 2017 13:26:32
 		.INPUTS
 			System.String
 			A DateTime object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			DateTime
 			Returns a DateTime object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

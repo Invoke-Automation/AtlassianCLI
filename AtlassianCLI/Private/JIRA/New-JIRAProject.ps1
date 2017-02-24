@@ -2,30 +2,25 @@ function New-JIRAProject {
 	<#
 		.SYNOPSIS
 			Creates a JIRAProject objects.
-
 		.DESCRIPTION
 			The New-JIRAProject cmdlet creates a JIRAProject object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAProject object.
-		
 		.PARAMETER Key
 			Specifies the key to be used to retrieve the JIRAProject object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAProject -Uri '/rest/api/2/project/10000' -Session $Session
+			Gets the project with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAProject object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAProject
 			Returns one or more JIRAProject objects.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -110,7 +105,7 @@ function New-JIRAProject {
 					Mandatory = $true
 				)][System.String] $Key
 			)
-			('/rest/api/latest/project/{0}' -f $Key)
+			('{0}/project/{1}' -f $SETTINGS.API.Uri,$Key)
 		}
 	}
 	Process{

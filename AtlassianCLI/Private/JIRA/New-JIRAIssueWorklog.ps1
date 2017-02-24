@@ -2,30 +2,23 @@ function New-JIRAIssueWorklog {
 	<#
 		.SYNOPSIS
 			Creates a JIRAIssueWorklog objects.
-
 		.DESCRIPTION
 			The New-JIRAIssueWorklog cmdlet creates a JIRAIssueWorklog object based on specified input.
-		
 		.PARAMETER Uri
 			Specifies the url to be used to retrieve the JIRAIssueWorklog object.
-		
-		.PARAMETER Key
-			Specifies the key to be used to retrieve the JIRAIssueWorklog object.
-
 		.PARAMETER Session
 			Specifies the AtlassianSession to use to perform this task.
 			If none is specified Get-AtlassianSession is called.
-		
 		.EXAMPLE
-			#ToDo
-		
+			C:\PS> New-JIRAIssueWorklog -Uri '/rest/api/2/issue/10000/worklog/10000' -Session $Session
+			Gets the comment with id 10000 for the issue with id 10000
 		.INPUTS
 			None or System.String
 			A JIRAIssueWorklog object is retrieved using the Uri parameter
-
 		.OUTPUTS
 			JIRAIssueWorklog
 			Returns a JIRAIssueWorklog object.
+		.NOTES
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
