@@ -24,7 +24,7 @@ function Get-AtlassianSession {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Get-AtlassianSession.md"
+		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-AtlassianSession"
 	)]
 	Param(
 		[Parameter(

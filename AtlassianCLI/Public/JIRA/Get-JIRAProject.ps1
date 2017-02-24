@@ -26,7 +26,7 @@ function Get-JIRAProject {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://github.com/Invoke-Automation/AtlassianCLI/Get-JIRAProject.md"
+		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAProject"
 	)]
 	Param(
 		[Parameter(

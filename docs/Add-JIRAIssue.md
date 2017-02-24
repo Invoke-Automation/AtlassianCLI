@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: "https://github.com/Invoke-Automation/AtlassianCLI/Add-JIRAIssue.md"
+online version: "https://invoke-automation.github.io/AtlassianCLI/Add-JIRAIssue"
 schema: 2.0.0
 ---
 
