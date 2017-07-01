@@ -205,16 +205,16 @@ class AtlassianSession {
 		}
 		
 		# Create temporary object to be serialized to disk
-		$export = "" | Select-Object Server, Username, EncryptedPassword
+		$export = New-Object PSObject  
 
 		# Give object a type name which can be identified later
 		$export.PSObject.TypeNames.Insert(0,'ExportedAtlassianSession')
-		$export.Server = $this.Session.Server
-		$export.Username = $this.Session.Credential.Username
+		$export | Add-Member -MemberType NoteProperty -Name Server -Value $this.Server
+		$export | Add-Member -MemberType NoteProperty -Name Username -Value $this.Credential.Username
 
 		# Encrypt SecureString password using Data Protection API
 		# Only the current user account can decrypt this cipher
-		$export.EncryptedPassword = $this.Session.Credential.Password | ConvertFrom-SecureString
+		$export | Add-Member -MemberType NoteProperty -Name EncryptedPassword -Value ($this.Credential.Password | ConvertFrom-SecureString)
 
 		# Export using the Export-Clixml cmdlet
 		$export | Export-Clixml $Path -Force:$Force

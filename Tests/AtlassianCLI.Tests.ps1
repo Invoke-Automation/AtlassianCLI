@@ -2,6 +2,7 @@ $testEnvironmentURL = 'http://localhost:2990/jira'
 $testEnvironmentUser = "Admin"
 $testEnvironmentPassword = "admin"
 $testEnvironmentCredential = [System.Management.Automation.PSCredential]::New($testEnvironmentUser, (ConvertTo-SecureString $testEnvironmentPassword -AsPlainText -Force))
+$testEnvironmentAtlassianSession = '.\Tests\AtlassianSession.enc.xml'
 
 # Import AtlassianCLI module
 try{
@@ -37,8 +38,13 @@ while((-not $siteOnline) -and ($connectionAttempts -lt $maxAttempts)){
 # Finally, we clean up the http request by closing it.
 $HTTP_Response.Close()
 
-# Setup session
-$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+# Get or Setup session
+if(Test-Path $testEnvironmentAtlassianSession){
+	$session = Get-AtlassianSession -Path $testEnvironmentAtlassianSession
+} else {
+	$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+	$session.save($testEnvironmentAtlassianSession)
+}
 
 # PROJECTS
 # Test Get functionality
