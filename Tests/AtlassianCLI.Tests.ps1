@@ -1,70 +1,89 @@
-$testEnvironmentURL = 'http://localhost:2990/jira'
-$testEnvironmentUser = "Admin"
-$testEnvironmentPassword = "admin"
-$testEnvironmentCredential = [System.Management.Automation.PSCredential]::New($testEnvironmentUser, (ConvertTo-SecureString $testEnvironmentPassword -AsPlainText -Force))
-$testEnvironmentAtlassianSession = '.\Tests\AtlassianSession.enc.xml'
+Describe -Name "AtlassianSession" -Fixture {
+	. "$PSScriptRoot\TestHelpers.ps1"
+	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
+	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+		It 'Can create a New-AtlassianSession' {
+			{ $session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential } | Should Not Throw
+		}
+		
+		It 'Returns an AtlassianSession Object' {
+			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$session.GetType() | Should Be 'AtlassianSession'
+		}
 
-# Import AtlassianCLI module
-try{
-	if($PSScriptRoot){
-		Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
-	} elseif(Test-Path '.\AtlassianCLI\AtlassianCLI.psm1') {
-		Import-Module '.\AtlassianCLI' -Force
+		It 'Saves an AtlassianSession File' {
+			if(Test-Path $testEnvironmentAtlassianSession){
+				Remove-Item $testEnvironmentAtlassianSession
+			}
+			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$session.Save($testEnvironmentAtlassianSession)
+			$testEnvironmentAtlassianSession | Should Exist
+		}
+
+		It 'Can Import a saved AtlassianSession File' {
+			{ $newSession = Get-AtlassianSession -Path $testEnvironmentAtlassianSession } | Should Not Throw
+		}
+
+		It 'Imports the AtlassianSession File correctly' {
+			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$newSession = Get-AtlassianSession -Path $testEnvironmentAtlassianSession
+			$newSession.GetType() | Should Be 'AtlassianSession'
+			$newSession.Server | Should BeLike $session.Server
+			$newSession.Credential.UserName | Should BeLike $session.Credential.UserName
+			# ($newSession.Credential.Password | ConvertFrom-SecureString) | Should BeLike ($session.Credential.Password | ConvertFrom-SecureString)
+		}
 	} else {
-		throw 'No Module Found!'
-	}
-} catch {
-	Write-Warning 'something went wrong loading AtlassianCLI module'
-	throw $_
-}
-
-# Check if environment is online
-$maxAttempts = 1
-# First we create the request.
-$HTTP_Request = [System.Net.WebRequest]::Create($testEnvironmentURL)
-$siteOnline = $false
-$connectionAttempts = 0
-while((-not $siteOnline) -and ($connectionAttempts -lt $maxAttempts)){
-	try{
-		# We then get a response from the site.
-		$HTTP_Response = $HTTP_Request.GetResponse()
-		$siteOnline = $true
-	} catch {
-		$connectionAttempts++
-		Write-Information -MessageData "Site is not online.`nIf you are using Atlassian SDK start a clean environment by running `'atlas-run-standalone --product jira`'"
-		Start-Sleep -Seconds 60
+		throw 'No Test Enviroment'
 	}
 }
-# Finally, we clean up the http request by closing it.
-$HTTP_Response.Close()
 
-# Get or Setup session
-if(Test-Path $testEnvironmentAtlassianSession){
-	$session = Get-AtlassianSession -Path $testEnvironmentAtlassianSession
-} else {
-	$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
-	$session.save($testEnvironmentAtlassianSession)
+Describe -Name "Get-JIRAProject" -Fixture {
+	. "$PSScriptRoot\TestHelpers.ps1"
+	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
+	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+		It 'Can Get-JIRAProject' {
+			{ $project = Get-JIRAProject -All } | Should Not Throw
+		}
+
+		It 'Returns JIRAProject Objects' {
+			$project = Get-JIRAProject -All
+			$project | ForEach-Object{
+				$_.GetType() | Should Be 'JIRAProject'
+			}
+		}
+	} else {
+		throw 'No Test Enviroment'
+	}
 }
-
-# PROJECTS
-# Test Get functionality
-$project = Get-JIRAProject -All | Select-Object -First 1
-if($project){
-	# ISSUES
-	# Test Get functionality
-	$issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key)
-
-	# Test Add functionality
-	$createdTask = Add-JIRAIssue -Project $project -IssueType 'Task' -Summary 'Big Test' -Description 'Big Issue' -Assignee 'Test' -Priority 'Highest' -FixVersions 'Test Version' -Components 'Test Component' -TimeEstimate (New-TimeSpan -Hours 1) -Properties @{labels=@('test','demo')} -Debug	
-	$createdSubTask = Add-JIRAIssue -Project $project -IssueType 'Sub-task' -Summary 'Sub-Task Test' -Description 'Smaller issue' -Reporter 'Test' -Assignee 'Test' -Priority 'Low' -Versions 'Test Version' -ParentTaskKey $createdTask.key -Properties @{labels=@('uber')} -Debug
-}
-
-
-
-
 
 
 # LEGACY TESTS
+
+# PROJECTS
+# Test Get functionality
+# $project = Get-JIRAProject -All | Select-Object -First 1
+# if($project){
+# 	# ISSUES
+# 	# Test Get functionality
+# 	$issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key)
+
+# 	# Test Add functionality
+# 	$createdTask = Add-JIRAIssue -Project $project -IssueType 'Task' -Summary 'Big Test' -Description 'Big Issue' -Assignee 'Test' -Priority 'Highest' -FixVersions 'Test Version' -Components 'Test Component' -TimeEstimate (New-TimeSpan -Hours 1) -Properties @{labels=@('test','demo')} -Debug	
+# 	$createdSubTask = Add-JIRAIssue -Project $project -IssueType 'Sub-task' -Summary 'Sub-Task Test' -Description 'Smaller issue' -Reporter 'Test' -Assignee 'Test' -Priority 'Low' -Versions 'Test Version' -ParentTaskKey $createdTask.key -Properties @{labels=@('uber')} -Debug
+# }
+
+# try{
+# 	if($PSScriptRoot){
+# 		Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
+# 	} elseif(Test-Path '.\AtlassianCLI\AtlassianCLI.psm1') {
+# 		Import-Module '.\AtlassianCLI' -Force
+# 	} else {
+# 		throw 'No Module Found!'
+# 	}
+# } catch {
+# 	Write-Warning 'something went wrong loading AtlassianCLI module'
+# 	throw $_
+# }
 
 # $session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
 # $base64AuthInfo = [Convert]::ToBase64String(
