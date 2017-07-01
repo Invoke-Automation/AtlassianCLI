@@ -65,7 +65,7 @@ function Get-JIRAIssue {
 			}
 		} elseif($JQL){
 			$method = 'GET'
-			$uriTemplate = ('{0}/search?jql={0}&startAt=0&maxResults={1}' -f $SETTINGS.API.Uri)
+			$uriTemplate = ('{0}/search?jql={{0}}&startAt=0&maxResults={{1}}' -f $SETTINGS.API.Uri)
 			$totalIssues = (Invoke-APIRequest -Method $method -Uri ($uriTemplate -f (Format-Jql $Jql),1) -Session $Session).total
 			if($totalIssues -gt 0){
 				$uri = ('{0}/search?jql={1}&startAt=0&maxResults={2}' -f $SETTINGS.API.Uri,(Format-Jql $Jql),$totalIssues)
