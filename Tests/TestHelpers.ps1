@@ -25,7 +25,7 @@ function Test-TestEnvironmentConnection {
 			$siteOnline = $true
 		} catch {
 			$connectionAttempts++
-			Write-Information -MessageData "Site is not online.`nIf you are using Atlassian SDK start a clean environment by running `'atlas-run-standalone --product jira`'"
+			Write-Host "Site is not online.`nIf you are using Atlassian SDK start a clean environment by running `'atlas-run-standalone --product jira`'"
 			Start-Sleep -Seconds 60
 		}
 	}

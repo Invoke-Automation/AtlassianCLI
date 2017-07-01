@@ -2,7 +2,7 @@ Describe -Name "AtlassianSession" -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
 	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
-		It 'Can create a New-AtlassianSession' {
+		It 'Can create a New AtlassianSession' {
 			{ $session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential } | Should Not Throw
 		}
 		
@@ -41,14 +41,51 @@ Describe -Name "Get-JIRAProject" -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
 	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
-		It 'Can Get-JIRAProject' {
-			{ $project = Get-JIRAProject -All } | Should Not Throw
+		It 'Can Get All JIRAProject' {
+			{ $projects = Get-JIRAProject -All } | Should Not Throw
+		}
+
+		It 'Can Get JIRAProject with Key' {
+			$projectKey = (Get-JIRAProject -All | Select-Object -First 1).Key
+			{ $project = Get-JIRAProject -Key $projectKey } | Should Not Throw
+		}
+
+		It 'Can Get JIRAProject with Name' {
+			$projectName = (Get-JIRAProject -All | Select-Object -First 1).Name
+			{ $project = Get-JIRAProject -Name $projectName } | Should Not Throw
 		}
 
 		It 'Returns JIRAProject Objects' {
-			$project = Get-JIRAProject -All
-			$project | ForEach-Object{
+			$projects = Get-JIRAProject -All
+			$projects | ForEach-Object{
 				$_.GetType() | Should Be 'JIRAProject'
+			}
+		}
+	} else {
+		throw 'No Test Enviroment'
+	}
+}
+
+Describe -Name "Get-JIRAIssue" -Fixture {
+	. "$PSScriptRoot\TestHelpers.ps1"
+	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
+	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+		It 'Can Get JIRAIssue with JQL' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			{ $issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key) } | Should Not Throw
+		}
+
+		It 'Can Get JIRAIssue with Key' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			$issueKey = (Get-JIRAIssue -Jql ('project={0}' -f $project.Key) | Select-Object -First 1).Key
+			{ $issue = Get-JIRAIssue -Key $issueKey } | Should Not Throw
+		}
+
+		It 'Returns JIRAProject Objects' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			$issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key)
+			$issues | ForEach-Object{
+				$_.GetType() | Should Be 'JIRAIssue'
 			}
 		}
 	} else {
