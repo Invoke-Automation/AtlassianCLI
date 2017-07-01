@@ -1,3 +1,8 @@
+---
+URL: https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/
+index: 0
+---
+
 AtlassianCLI
 =============
 AtlassianCLI provides a PowerShell interface to several Atlassian web applications using their respective REST API's
