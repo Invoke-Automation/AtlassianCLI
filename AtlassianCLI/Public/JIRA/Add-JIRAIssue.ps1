@@ -133,9 +133,15 @@ function Add-JIRAIssue {
 			$fields.Add('project',@{key=$Project.Key})
 		}
 		# Check if Issue type exists
-		$objIssueType = $Project.IssueTypes | Where-Object{($_.Id -eq $IssueType) -or ($_.Name -eq $IssueType)}
-		if($objIssueType){
-			$fields.Add('issuetype',@{name=$objIssueType.Name})
+		if($Project){
+			$objIssueType = $Project.IssueTypes | Where-Object{($_.Id -like $IssueType) -or ($_.Name -like $IssueType)}
+			if($objIssueType){
+				$fields.Add('issuetype',@{name=$objIssueType.Name})
+			}
+		} else {
+			if($IssueType){
+				$fields.Add('issuetype',@{name=$IssueType})
+			}
 		}
 		if($Summary){
 			$fields.Add('summary',$Summary)
