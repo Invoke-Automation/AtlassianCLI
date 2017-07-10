@@ -124,7 +124,7 @@ function Add-JIRAIssue {
 	)
 	Begin{}
 	Process{
-		$request = @{}
+		# Initialise and check fields
 		$fields = @{}
 		# Add Project
 		if($ProjectKey) {
@@ -137,6 +137,8 @@ function Add-JIRAIssue {
 			$objIssueType = $Project.IssueTypes | Where-Object{($_.Id -like $IssueType) -or ($_.Name -like $IssueType)}
 			if($objIssueType){
 				$fields.Add('issuetype',@{name=$objIssueType.Name})
+			} else {
+				throw ('Issue type does not exist in {0}' -f $Project)
 			}
 		} else {
 			if($IssueType){
@@ -189,11 +191,17 @@ function Add-JIRAIssue {
 		if($ParentTaskKey){
 			$fields.Add('parent',@{key=$ParentTaskKey})
 		}
-
 		foreach($key in $Properties.Keys){
 			$fields.Add(($key).ToLower(),$Properties.$key)
 		}
 
+		# Check if all required fields are present
+		$createmeta = Invoke-APIRequest -Method 'GET' -Uri ('rest/api/2/issue/createmeta?projectKeys={0}&issuetypeNames={1}&expand=projects.issuetypes.fields' -f $fields.project.key,$fields.issuetype.name) -Session $Session
+		foreach($field in $createmeta.projects.issuetypes.fields){
+			#ToDo: Check if field is required
+		}
+
+		$request = @{}
 		$request.Add('fields',$fields)
 		$request = $request | ConvertTo-Json -Depth 3
 		Write-Debug -Message $request
