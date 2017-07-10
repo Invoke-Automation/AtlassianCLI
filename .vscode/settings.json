@@ -1,0 +1,9 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+	// The number of spaces a tab is equal to.
+    "editor.tabSize": 4,
+	"editor.insertSpaces": false
+
+	// Sets the codeformatting options to follow the given indent style in a way that is compatible with PowerShell syntax. For more information about the brace styles please refer to https://github.com/PoshCode/PowerShellPracticeAndStyle/issues/81.
+	"powershell.codeFormatting.preset": "OTBS",
+}
