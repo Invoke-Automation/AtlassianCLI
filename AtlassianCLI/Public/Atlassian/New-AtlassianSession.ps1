@@ -44,7 +44,7 @@ function New-AtlassianSession {
 	Process{
 		$sessionObject = New-Object AtlassianSession -Property @{
 				Credential = $Credential
-				Server = $Server
+				Server = $Server -replace '^(.*[^/]+)[/]*$','$1'
 			}
 		if(Test-Path variable:global:$SESSIONVARIABLENAME){
 			if($PSCmdlet.ShouldProcess(
