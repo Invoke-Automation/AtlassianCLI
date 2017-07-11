@@ -212,11 +212,21 @@ function Add-JIRAIssue {
 
 		# Invoke request if valid
 		if($validRequest){
+			Write-Verbose -Message 'Valid Request'
 			$request = @{}
 			$request.Add('fields',$fields)
 			$request = $request | ConvertTo-Json -Depth 3
 			Write-Debug -Message $request
-			Invoke-APIRequest -Method 'POST' -Uri 'rest/api/2/issue/' -Body $request -Session $Session
+			$requestResult = Invoke-APIRequest -Method 'POST' -Uri 'rest/api/2/issue/' -Body $request -Session $Session
+			if($requestResult -ne $null){
+				$output = @()
+				foreach($obj in $requestResult) {
+					$output += New-JIRAIssue -Uri $obj.self
+				}
+				$output
+			} else {
+				$null
+			}
 		} else {
 			foreach($message in $invalidRequestMessage){
 				Write-Error -Message $message
