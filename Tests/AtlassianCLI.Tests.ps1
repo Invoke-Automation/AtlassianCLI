@@ -93,6 +93,31 @@ Describe -Name "Get-JIRAIssue" -Fixture {
 	}
 }
 
+Describe -Name 'Add-JIRAIssue' -Fixture {
+	. "$PSScriptRoot\TestHelpers.ps1"
+	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
+	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+		It 'Can Add new JIRAIssue with properties' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			{$issue = Add-JIRAIssue -Project $project.Key -IssueType 'Task' -Summary 'Test'} | Should Not Throw
+		}
+
+		It 'Throws error when Add new JIRAIssue without required properties' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			{$issue = Add-JIRAIssue -Project $project.Key -IssueType 'Task'} | Should Not Throw
+		}
+
+		It 'Returns JIRAIssue Object' {
+			$project = Get-JIRAProject -All | Select-Object -First 1
+			$issue = Add-JIRAIssue -Project $project.Key -IssueType 'Task' -Summary 'Test'
+			$issue | ForEach-Object{
+				$_.GetType() | Should Be 'JIRAIssue'
+			}
+		}
+	} else {
+		throw 'No Test Enviroment'
+	}
+}
 
 # LEGACY TESTS
 
