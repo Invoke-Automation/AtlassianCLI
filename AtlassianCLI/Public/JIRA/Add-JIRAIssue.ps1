@@ -153,6 +153,8 @@ function Add-JIRAIssue {
 		}
 		if($Reporter){
 			$fields.Add('reporter',@{name=$Reporter})
+		} else {
+			$fields.Add('reporter',@{name=$Session.Credential.UserName})
 		}
 		if($Assignee){
 			$fields.Add('assignee',@{name=$Assignee})
@@ -196,16 +198,30 @@ function Add-JIRAIssue {
 		}
 
 		# Check if all required fields are present
+		$validRequest = $true
+		$invalidRequestMessage = @()
 		$createmeta = Invoke-APIRequest -Method 'GET' -Uri ('rest/api/2/issue/createmeta?projectKeys={0}&issuetypeNames={1}&expand=projects.issuetypes.fields' -f $fields.project.key,$fields.issuetype.name) -Session $Session
-		foreach($field in $createmeta.projects.issuetypes.fields){
-			#ToDo: Check if field is required
+		foreach($property in $createmeta.projects.issuetypes.fields.psobject.Properties){
+			if($property.Value.required -eq 'True'){
+				if(-not $fields.($property.Name)){
+					$validRequest = $false
+					$invalidRequestMessage += ('{0} is a required field for issues with issuetype {1} in project {2}' -f $property.Name,$fields.issuetype.name,$fields.project.key)
+				}
+			}
 		}
 
-		$request = @{}
-		$request.Add('fields',$fields)
-		$request = $request | ConvertTo-Json -Depth 3
-		Write-Debug -Message $request
-		Invoke-APIRequest -Method 'POST' -Uri 'rest/api/2/issue/' -Body $request -Session $Session
+		# Invoke request if valid
+		if($validRequest){
+			$request = @{}
+			$request.Add('fields',$fields)
+			$request = $request | ConvertTo-Json -Depth 3
+			Write-Debug -Message $request
+			Invoke-APIRequest -Method 'POST' -Uri 'rest/api/2/issue/' -Body $request -Session $Session
+		} else {
+			foreach($message in $invalidRequestMessage){
+				Write-Error -Message $message
+			}
+		}
 	}
 	End{}
 }
