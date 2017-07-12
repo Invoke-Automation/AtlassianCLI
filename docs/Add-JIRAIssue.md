@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: http://docs.invoke-automation.com
+online version: 
 schema: 2.0.0
 ---
 
@@ -305,6 +305,4 @@ Make sure to check what property fields are required for the issue type in the p
 Also make sure that the fields you want to set are available on the screens that are available, the REST API can not set properties that are not available in the create screen through the web interface.
 
 ## RELATED LINKS
-
-[http://docs.invoke-automation.com](http://docs.invoke-automation.com)
 

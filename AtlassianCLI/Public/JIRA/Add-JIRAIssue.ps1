@@ -54,8 +54,6 @@ function Add-JIRAIssue {
 		.NOTES
 			Make sure to check what property fields are required for the issue type in the project you want to create your issue in.
 			Also make sure that the fields you want to set are available on the screens that are available, the REST API can not set properties that are not available in the create screen through the web interface.
-		.LINK
-			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,

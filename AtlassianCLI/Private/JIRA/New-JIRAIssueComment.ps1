@@ -19,6 +19,8 @@ function New-JIRAIssueComment {
 			JIRAIssueComment
 			Returns a JIRAIssueComment object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

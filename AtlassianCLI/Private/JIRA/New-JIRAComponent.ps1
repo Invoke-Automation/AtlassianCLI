@@ -19,6 +19,8 @@ function New-JIRAComponent {
 			JIRAComponent
 			Returns a JIRAComponent object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

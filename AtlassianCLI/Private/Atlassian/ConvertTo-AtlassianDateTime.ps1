@@ -16,6 +16,8 @@ function ConvertTo-AtlassianDateTime {
 			System.String
 			Returns a String object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

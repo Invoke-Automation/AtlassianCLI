@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: http://docs.invoke-automation.com
+online version: 
 schema: 2.0.0
 ---
 
@@ -94,6 +94,4 @@ Returns one or more JIRAIssue objects.
 ## NOTES
 
 ## RELATED LINKS
-
-[http://docs.invoke-automation.com](http://docs.invoke-automation.com)
 

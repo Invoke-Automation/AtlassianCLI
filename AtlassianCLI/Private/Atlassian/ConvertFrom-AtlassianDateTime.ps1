@@ -16,6 +16,8 @@ function ConvertFrom-AtlassianDateTime {
 			DateTime
 			Returns a DateTime object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

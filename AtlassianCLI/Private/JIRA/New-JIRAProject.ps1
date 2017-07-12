@@ -21,6 +21,8 @@ function New-JIRAProject {
 			JIRAProject
 			Returns one or more JIRAProject objects.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

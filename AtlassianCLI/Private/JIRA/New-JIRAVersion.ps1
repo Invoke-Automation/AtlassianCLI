@@ -19,6 +19,8 @@ function New-JIRAVersion {
 			JIRAVersion
 			Returns a JIRAVersion object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

@@ -19,6 +19,8 @@ function New-JIRAIssue {
 			JIRAIssue
 			Returns a JIRAIssue object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

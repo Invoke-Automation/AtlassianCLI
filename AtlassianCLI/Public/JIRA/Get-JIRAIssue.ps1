@@ -21,8 +21,6 @@ function Get-JIRAIssue {
 			JIRAIssue
 			Returns one or more JIRAIssue objects.
 		.NOTES
-		.LINK
-			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,

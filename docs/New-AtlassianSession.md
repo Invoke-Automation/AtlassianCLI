@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: http://docs.invoke-automation.com
+online version: 
 schema: 2.0.0
 ---
 
@@ -108,6 +108,4 @@ The AtlassianSession object has a Save(\<Path\>) method that can be called to sa
 Encrypted session files can only be used by the same user account.
 
 ## RELATED LINKS
-
-[http://docs.invoke-automation.com](http://docs.invoke-automation.com)
 

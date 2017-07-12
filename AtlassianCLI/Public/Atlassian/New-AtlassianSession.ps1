@@ -23,8 +23,6 @@ function New-AtlassianSession {
 		.NOTES
 			The AtlassianSession object has a Save(<Path>) method that can be called to save an encrypted session file to disk.
 			Encrypted session files can only be used by the same user account.
-		.LINK
-			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		SupportsShouldProcess = $true,

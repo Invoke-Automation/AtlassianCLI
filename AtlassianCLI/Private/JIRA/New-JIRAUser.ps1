@@ -19,6 +19,8 @@ function New-JIRAUser {
 			JIRAUser
 			Returns a JIRAUser object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true

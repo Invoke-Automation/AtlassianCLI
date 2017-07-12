@@ -19,6 +19,8 @@ function New-JIRAIssueWorklog {
 			JIRAIssueWorklog
 			Returns a JIRAIssueWorklog object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
