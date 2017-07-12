@@ -26,7 +26,7 @@ function New-AtlassianSession {
 	#>
 	[CmdletBinding(
 		SupportsShouldProcess = $true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/New-AtlassianSession"
+		HelpURI = "https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/New-AtlassianSession"
 	)]
 	Param(
 		[Parameter(
@@ -38,19 +38,19 @@ function New-AtlassianSession {
 		)]
 		[System.Management.Automation.PSCredential] $Credential = (Get-Credential -Message "Enter Atlassian user credentials")
 	)
-	Begin{
+	Begin {
 		$SESSIONVARIABLENAME = $SETTINGS.Session.VariableName
 	}
-	Process{
+	Process {
 		$sessionObject = New-Object AtlassianSession -Property @{
-				Credential = $Credential
-				Server = $Server
-			}
-		if(Test-Path variable:global:$SESSIONVARIABLENAME){
-			if($PSCmdlet.ShouldProcess(
-				"If you confirm the current session variable will be replaced by the new one.",
-				"Are you sure you want to replace the current session?",
-				"Replace current session")){
+			Credential = $Credential
+			Server     = $Server -replace '^(.*[^/]+)[/]*$', '$1'
+		}
+		if (Test-Path variable:global:$SESSIONVARIABLENAME) {
+			if ($PSCmdlet.ShouldProcess(
+					"If you confirm the current session variable will be replaced by the new one.",
+					"Are you sure you want to replace the current session?",
+					"Replace current session")) {
 				Set-Variable -Name $SESSIONVARIABLENAME -Value $sessionObject -Visibility 'Public' -Scope 'Global'
 			}
 		} else {
@@ -58,5 +58,5 @@ function New-AtlassianSession {
 		}
 		return $sessionObject
 	}
-	End{}
+	End {}
 }

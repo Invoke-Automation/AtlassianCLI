@@ -26,7 +26,7 @@ function Get-JIRAProject {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAProject"
+		HelpURI = "https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-JIRAProject"
 	)]
 	Param(
 		[Parameter(
@@ -49,24 +49,24 @@ function Get-JIRAProject {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{}
-	Process{
-		if($Key){
+	Begin {}
+	Process {
+		if ($Key) {
 			$method = 'GET'
-			$uri = ('{0}/project/{1}' -f $SETTINGS.API.Uri,$Key)
+			$uri = ('{0}/project/{1}' -f $SETTINGS.API.Uri, $Key)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
-		} elseif($Name){
+		} elseif ($Name) {
 			$method = 'GET'
 			$uri = ('{0}/project/' -f $SETTINGS.API.Uri)
-			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session | Where-Object{$_.Name -like ('*{0}*' -f $Name)}
-		} elseif($All){
+			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session | Where-Object {$_.Name -like ('*{0}*' -f $Name)}
+		} elseif ($All) {
 			$method = 'GET'
 			$uri = ('{0}/project/' -f $SETTINGS.API.Uri)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
 		}
-		if($requestResult -ne $null){
+		if ($requestResult -ne $null) {
 			$output = @()
-			foreach($obj in $requestResult) {
+			foreach ($obj in $requestResult) {
 				$output += New-JIRAProject -Uri $obj.self
 			}
 			$output
@@ -74,5 +74,5 @@ function Get-JIRAProject {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

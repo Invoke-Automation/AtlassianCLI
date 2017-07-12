@@ -16,6 +16,8 @@ function ConvertTo-AtlassianDateTime {
 			System.String
 			Returns a String object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -28,15 +30,15 @@ function ConvertTo-AtlassianDateTime {
 		)]
 		[System.DateTime] $InputObject
 	)
-	Begin{
+	Begin {
 		$DATETIMEFORMAT = $SETTINGS.Atlassian.DateTimeStringFormat
 	}
-	Process{
-		try{
+	Process {
+		try {
 			$InputObject.ToString($DATETIMEFORMAT)
 		} catch {
 			throw ('{0} can not be converted to String' -f $InputObject)
 		}
 	}
-	End{}
+	End {}
 }

@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: "https://invoke-automation.github.io/AtlassianCLI/Get-AtlassianSession"
+online version: 
 schema: 2.0.0
 ---
 
@@ -12,7 +12,7 @@ Get one or more JIRAIssue objects.
 ## SYNTAX
 
 ```
-Get-AtlassianSession [[-Path] <String>] [-NoNewSession] [<CommonParameters>]
+Get-AtlassianSession [[-Path] <String>] [-NoNewSession]
 ```
 
 ## DESCRIPTION
@@ -59,9 +59,6 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

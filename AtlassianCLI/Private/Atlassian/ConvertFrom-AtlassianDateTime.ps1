@@ -16,6 +16,8 @@ function ConvertFrom-AtlassianDateTime {
 			DateTime
 			Returns a DateTime object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -28,12 +30,12 @@ function ConvertFrom-AtlassianDateTime {
 		)]
 		[System.String] $InputObject
 	)
-	Begin{
+	Begin {
 		$DATETIMEPATTERN = $SETTINGS.Atlassian.DateTimeStringPattern
 	}
-	Process{
-		if($InputObject -match $DATETIMEPATTERN){
-			try{
+	Process {
+		if ($InputObject -match $DATETIMEPATTERN) {
+			try {
 				[datetime]::Parse($InputObject)
 			} catch {
 				throw ('{0} can not be converted to DateTime' -f $InputObject)
@@ -42,5 +44,5 @@ function ConvertFrom-AtlassianDateTime {
 			throw ('{0} has the wrong format' -f $InputObject)
 		}
 	}
-	End{}
+	End {}
 }

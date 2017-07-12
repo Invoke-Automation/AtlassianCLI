@@ -24,7 +24,7 @@ function Get-JIRAIssue {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAIssue"
+		HelpURI = "https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-JIRAIssue"
 	)]
 	Param(
 		[Parameter(
@@ -42,7 +42,7 @@ function Get-JIRAIssue {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		function Format-Jql {
 			Param(
 				[Parameter(
@@ -50,30 +50,30 @@ function Get-JIRAIssue {
 				)]
 				[String] $Jql
 			)
-			$Jql -replace ' ','+'
+			$Jql -replace ' ', '+'
 		}
 	}
-	Process{
-		if($Key){
+	Process {
+		if ($Key) {
 			$method = 'GET'
-			$uri = ('{0}/issue/{1}' -f $SETTINGS.API.Uri,$Key)
+			$uri = ('{0}/issue/{1}' -f $SETTINGS.API.Uri, $Key)
 			$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
-			if($requestResult -ne $null){
+			if ($requestResult -ne $null) {
 				New-JIRAIssue -Uri $requestResult.self
 			} else {
 				$null
 			}
-		} elseif($JQL){
+		} elseif ($JQL) {
 			$method = 'GET'
-			$uriTemplate = ('{0}/search?jql={0}&startAt=0&maxResults={1}' -f $SETTINGS.API.Uri)
-			$totalIssues = (Invoke-APIRequest -Method $method -Uri ($uriTemplate -f (Format-Jql $Jql),1) -Session $Session).total
-			if($totalIssues -gt 0){
-				$uri = ('{0}/search?jql={1}&startAt=0&maxResults={2}' -f $SETTINGS.API.Uri,(Format-Jql $Jql),$totalIssues)
+			$uriTemplate = ('{0}/search?jql={{0}}&startAt=0&maxResults={{1}}' -f $SETTINGS.API.Uri)
+			$totalIssues = (Invoke-APIRequest -Method $method -Uri ($uriTemplate -f (Format-Jql $Jql), 1) -Session $Session).total
+			if ($totalIssues -gt 0) {
+				$uri = ('{0}/search?jql={1}&startAt=0&maxResults={2}' -f $SETTINGS.API.Uri, (Format-Jql $Jql), $totalIssues)
 				$requestResult = Invoke-APIRequest -Method $method -Uri $uri -Session $Session
 			}
-			if($requestResult -ne $null){
+			if ($requestResult -ne $null) {
 				$output = @()
-				foreach($obj in $requestResult.issues) {
+				foreach ($obj in $requestResult.issues) {
 					$output += New-JIRAIssue -Uri $obj.self
 				}
 				$output
@@ -82,5 +82,5 @@ function Get-JIRAIssue {
 			}
 		}
 	}
-	End{}
+	End {}
 }

@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: "https://invoke-automation.github.io/AtlassianCLI/Add-JIRAIssue"
+online version: 
 schema: 2.0.0
 ---
 
@@ -16,7 +16,7 @@ Creates a new JIRA issue
 Add-JIRAIssue -IssueType <String> [-Summary <String>] [-Description <String>] [-Reporter <String>]
  [-Assignee <String>] [-Versions <String[]>] [-FixVersions <String[]>] [-Components <String[]>]
  [-TimeEstimate <TimeSpan>] [-Priority <String>] [-ParentTaskKey <String>] [-Properties <Hashtable>]
- [-Session <AtlassianSession>] [<CommonParameters>]
+ [-Session <AtlassianSession>]
 ```
 
 ### Project
@@ -24,7 +24,7 @@ Add-JIRAIssue -IssueType <String> [-Summary <String>] [-Description <String>] [-
 Add-JIRAIssue -Project <JIRAProject> -IssueType <String> [-Summary <String>] [-Description <String>]
  [-Reporter <String>] [-Assignee <String>] [-Versions <String[]>] [-FixVersions <String[]>]
  [-Components <String[]>] [-TimeEstimate <TimeSpan>] [-Priority <String>] [-ParentTaskKey <String>]
- [-Properties <Hashtable>] [-Session <AtlassianSession>] [<CommonParameters>]
+ [-Properties <Hashtable>] [-Session <AtlassianSession>]
 ```
 
 ### ProjectKey
@@ -32,7 +32,7 @@ Add-JIRAIssue -Project <JIRAProject> -IssueType <String> [-Summary <String>] [-D
 Add-JIRAIssue -ProjectKey <String> -IssueType <String> [-Summary <String>] [-Description <String>]
  [-Reporter <String>] [-Assignee <String>] [-Versions <String[]>] [-FixVersions <String[]>]
  [-Components <String[]>] [-TimeEstimate <TimeSpan>] [-Priority <String>] [-ParentTaskKey <String>]
- [-Properties <Hashtable>] [-Session <AtlassianSession>] [<CommonParameters>]
+ [-Properties <Hashtable>] [-Session <AtlassianSession>]
 ```
 
 ## DESCRIPTION
@@ -290,9 +290,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
 
 ### None
@@ -304,6 +301,8 @@ You cannot pipe input to this cmdlet.
 Returns one or more JIRAIssue objects.
 
 ## NOTES
+Make sure to check what property fields are required for the issue type in the project you want to create your issue in.
+Also make sure that the fields you want to set are available on the screens that are available, the REST API can not set properties that are not available in the create screen through the web interface.
 
 ## RELATED LINKS
 

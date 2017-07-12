@@ -19,6 +19,8 @@ function New-JIRAIssueWorklog {
 			JIRAIssueWorklog
 			Returns a JIRAIssueWorklog object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -34,7 +36,7 @@ function New-JIRAIssueWorklog {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAIssueWorklogObject {
 			Param(
@@ -43,31 +45,31 @@ function New-JIRAIssueWorklog {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAIssueWorklog -Property @{
-						Self = $_.self
-						Id = $_.id
-						IssueId = $_.issueId
-						Author = $_.author.self | New-JIRAUser
-						UpdateAuthor = $_.updateAuthor.self | New-JIRAUser
-						Comment = $_.comment
-						Created = $_.created | ConvertFrom-AtlassianDateTime
-						Updated = $_.updated | ConvertFrom-AtlassianDateTime
-						Started = $_.started | ConvertFrom-AtlassianDateTime
-						TimeSpent = [Timespan]::FromSeconds($_.timeSpentSeconds)
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAIssueWorklog -Property @{
+					Self         = $_.self
+					Id           = $_.id
+					IssueId      = $_.issueId
+					Author       = $_.author.self | New-JIRAUser
+					UpdateAuthor = $_.updateAuthor.self | New-JIRAUser
+					Comment      = $_.comment
+					Created      = $_.created | ConvertFrom-AtlassianDateTime
+					Updated      = $_.updated | ConvertFrom-AtlassianDateTime
+					Started      = $_.started | ConvertFrom-AtlassianDateTime
+					TimeSpent    = [Timespan]::FromSeconds($_.timeSpentSeconds)
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAIssueWorklogObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

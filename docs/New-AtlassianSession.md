@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: "https://invoke-automation.github.io/AtlassianCLI/New-AtlassianSession"
+online version: 
 schema: 2.0.0
 ---
 
@@ -12,7 +12,7 @@ Initialises a new AtlassianSession
 ## SYNTAX
 
 ```
-New-AtlassianSession [-Server] <String> [-Credential] <PSCredential> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-AtlassianSession [-Server] <String> [-Credential] <PSCredential> [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
@@ -92,9 +92,6 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

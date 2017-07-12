@@ -21,6 +21,8 @@ function New-JIRAProject {
 			JIRAProject
 			Returns one or more JIRAProject objects.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -43,7 +45,7 @@ function New-JIRAProject {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAProjectObject {
 			Param(
@@ -52,52 +54,52 @@ function New-JIRAProject {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					$properties = @{
-							Self = $_.self
-							Id = $_.id
-							Key = $_.key
-							Name = $_.name
-							Description = $_.description
-							Type = $_.projectTypeKey
-						}
-					# Roles
-					if($_.roles) {
-						$roles = @{}
-						foreach($role in ($_.roles | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name)) {
-							$roles.Add($role,$_.roles."$role")
-						}
-						$properties.Add('Roles',$roles)
-					} else {
-						$properties.Add('Roles',$null)
-					}
-					# Lead
-					if($_.lead) {
-						$properties.Add('Lead',(New-JIRAUser -Uri $_.lead.self))
-					} else {
-						$properties.Add('Lead',$null)
-					}
-					# Versions
-					if($_.versions){
-						$properties.Add('Versions',($_.versions | %{New-JIRAVersion -Uri $_.self}))
-					} else {
-						$properties.Add('Versions',$null)
-					}
-					# Components
-					if($_.components){
-						$properties.Add('Components',($_.components | %{New-JIRAComponent -Uri $_.self}))
-					} else {
-						$properties.Add('Components',$null)
-					}
-					# IssueTypes
-					if($_.issueTypes){
-						$properties.Add('IssueTypes',($_.issueTypes | %{New-JIRAIssueType -Uri $_.self}))
-					} else {
-						$properties.Add('IssueTypes',$null)
-					}
-					# Create Object
-					New-Object -TypeName JIRAProject -Property $properties
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				$properties = @{
+					Self        = $_.self
+					Id          = $_.id
+					Key         = $_.key
+					Name        = $_.name
+					Description = $_.description
+					Type        = $_.projectTypeKey
 				}
+				# Roles
+				if ($_.roles) {
+					$roles = @{}
+					foreach ($role in ($_.roles | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name)) {
+						$roles.Add($role, $_.roles."$role")
+					}
+					$properties.Add('Roles', $roles)
+				} else {
+					$properties.Add('Roles', $null)
+				}
+				# Lead
+				if ($_.lead) {
+					$properties.Add('Lead', (New-JIRAUser -Uri $_.lead.self))
+				} else {
+					$properties.Add('Lead', $null)
+				}
+				# Versions
+				if ($_.versions) {
+					$properties.Add('Versions', ($_.versions | % {New-JIRAVersion -Uri $_.self}))
+				} else {
+					$properties.Add('Versions', $null)
+				}
+				# Components
+				if ($_.components) {
+					$properties.Add('Components', ($_.components | % {New-JIRAComponent -Uri $_.self}))
+				} else {
+					$properties.Add('Components', $null)
+				}
+				# IssueTypes
+				if ($_.issueTypes) {
+					$properties.Add('IssueTypes', ($_.issueTypes | % {New-JIRAIssueType -Uri $_.self}))
+				} else {
+					$properties.Add('IssueTypes', $null)
+				}
+				# Create Object
+				New-Object -TypeName JIRAProject -Property $properties
+			}
 		}
 		function Get-JIRAProjectUri {
 			Param(
@@ -105,20 +107,20 @@ function New-JIRAProject {
 					Mandatory = $true
 				)][System.String] $Key
 			)
-			('{0}/project/{1}' -f $SETTINGS.API.Uri,$Key)
+			('{0}/project/{1}' -f $SETTINGS.API.Uri, $Key)
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAProjectObject -Uri $Uri
-		} elseif($Key) {
+		} elseif ($Key) {
 			$outpuObject = Get-JIRAProjectObject -Uri (Get-JIRAProjectUri -Key $Key)
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

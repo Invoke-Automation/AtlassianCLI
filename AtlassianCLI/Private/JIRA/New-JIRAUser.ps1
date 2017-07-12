@@ -19,6 +19,8 @@ function New-JIRAUser {
 			JIRAUser
 			Returns a JIRAUser object.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true
@@ -34,7 +36,7 @@ function New-JIRAUser {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAUserObject {
 			Param(
@@ -43,27 +45,27 @@ function New-JIRAUser {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAUser -Property @{
-						Self = $_.self
-						Key = $_.key
-						Name = $_.name
-						DisplayName = $_.displayname
-						#AvatarUrls = $_.avatarUrls
-						IsActive = [System.Boolean]$_.active
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAUser -Property @{
+					Self        = $_.self
+					Key         = $_.key
+					Name        = $_.name
+					DisplayName = $_.displayname
+					#AvatarUrls = $_.avatarUrls
+					IsActive    = [System.Boolean]$_.active
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAUserObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }
