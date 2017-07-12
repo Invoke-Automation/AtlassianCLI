@@ -13,6 +13,10 @@ Getting started
 Windows PowerShell 5.0 or greater
 
 ## Usage
+Download the module from the [PowerShellGallery](https://www.powershellgallery.com/packages/AtlassianCLI)
+```PowerShell
+Install-Module -Name AtlassianCLI
+```
 Import the module
 ```PowerShell
 Import-Module .\AtlassianCLI
