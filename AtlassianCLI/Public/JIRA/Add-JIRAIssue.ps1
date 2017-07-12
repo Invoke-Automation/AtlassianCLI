@@ -199,13 +199,13 @@ function Add-JIRAIssue {
 
 		# Check if all required fields are present
 		$validRequest = $true
-		$invalidRequestMessage = @()
+		$missingRequiredFields = @()
 		$createmeta = Invoke-APIRequest -Method 'GET' -Uri ('rest/api/2/issue/createmeta?projectKeys={0}&issuetypeNames={1}&expand=projects.issuetypes.fields' -f $fields.project.key,$fields.issuetype.name) -Session $Session
 		foreach($property in $createmeta.projects.issuetypes.fields.psobject.Properties){
 			if($property.Value.required -eq 'True'){
 				if(-not $fields.($property.Name)){
 					$validRequest = $false
-					$invalidRequestMessage += ('{0} is a required field for issues with issuetype {1} in project {2}' -f $property.Name,$fields.issuetype.name,$fields.project.key)
+					$missingRequiredFields += $property.Name
 				}
 			}
 		}
@@ -228,9 +228,7 @@ function Add-JIRAIssue {
 				$null
 			}
 		} else {
-			foreach($message in $invalidRequestMessage){
-				Write-Error -Message $message
-			}
+			throw ('Missing required field(s) for issues with issuetype {0} in project {1}: {2}' -f $fields.issuetype.name,$fields.project.key,($missingRequiredFields -join ', '))
 		}
 	}
 	End{}
