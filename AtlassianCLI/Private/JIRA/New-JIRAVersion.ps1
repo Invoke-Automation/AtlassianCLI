@@ -34,7 +34,7 @@ function New-JIRAVersion {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAVersionObject {
 			Param(
@@ -43,32 +43,32 @@ function New-JIRAVersion {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAVersion -Property @{
-						Self = $_.self
-						Id = $_.id
-						Name = $_.name
-						Description = $_.description
-						IsArchived = [System.Boolean]$_.archived
-						IsReleased = [System.Boolean]$_.released
-						StartDate = [System.Nullable[System.DateTime]]$_.startDate
-						ReleaseDate = [System.Nullable[System.DateTime]]$_.releaseDate
-						UserStartDate = [System.Nullable[System.DateTime]]$_.userStartDate
-						UserReleaseDate = [System.Nullable[System.DateTime]]$_.userReleaseDate
-						ProjectId = $_.projectId
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAVersion -Property @{
+					Self            = $_.self
+					Id              = $_.id
+					Name            = $_.name
+					Description     = $_.description
+					IsArchived      = [System.Boolean]$_.archived
+					IsReleased      = [System.Boolean]$_.released
+					StartDate       = [System.Nullable[System.DateTime]]$_.startDate
+					ReleaseDate     = [System.Nullable[System.DateTime]]$_.releaseDate
+					UserStartDate   = [System.Nullable[System.DateTime]]$_.userStartDate
+					UserReleaseDate = [System.Nullable[System.DateTime]]$_.userReleaseDate
+					ProjectId       = $_.projectId
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAVersionObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

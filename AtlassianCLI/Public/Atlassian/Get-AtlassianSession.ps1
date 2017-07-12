@@ -26,35 +26,35 @@ function Get-AtlassianSession {
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-AtlassianSession"
+		HelpURI = "https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-AtlassianSession"
 	)]
 	Param(
 		[Parameter(
 			Mandatory = $false,
 			Position = 1
 		)]
-	    [System.String] $Path,
+		[System.String] $Path,
 		[Parameter(
 			Mandatory = $false
 		)]
 		[Alias('NoNew')]
 		[Switch] $NoNewSession
 	)
-	Begin{
+	Begin {
 		$SESSIONVARIABLENAME = $SETTINGS.Session.VariableName
 
 		function Import-AtlassianSession {
 			<#
-			.SYNOPSIS
-				Load an AtlassianSession object from a given XML-document
+				.SYNOPSIS
+					Load an AtlassianSession object from a given XML-document
 
-			.DESCRIPTION
-				The Import-AtlassianSession allow you to easily load an AtlassianSession object from disk in a relativelysecure manner.
-				The source on-disk session file can only be decrypted by the same user account which performed the encryption.
-				For more details, see the help files for ConvertFrom-SecureString and ConvertTo-SecureString as well as	MSDN pages about Windows Data Protection API.
+				.DESCRIPTION
+					The Import-AtlassianSession allow you to easily load an AtlassianSession object from disk in a relativelysecure manner.
+					The source on-disk session file can only be decrypted by the same user account which performed the encryption.
+					For more details, see the help files for ConvertFrom-SecureString and ConvertTo-SecureString as well as	MSDN pages about Windows Data Protection API.
 
-			.OUTPUTS
-				AtlassianSession
+				.OUTPUTS
+					AtlassianSession
 			#>
 			[CmdletBinding()]
 			Param (
@@ -65,7 +65,7 @@ function Get-AtlassianSession {
 			)
 
 			# Check Path
-			if(-not (Test-Path $Path -PathType Leaf)){
+			if (-not (Test-Path $Path -PathType Leaf)) {
 				Throw "Invalid Path."
 			}
 
@@ -85,10 +85,10 @@ function Get-AtlassianSession {
 			New-AtlassianSession -Server $server -Credential (New-Object System.Management.Automation.PSCredential $username, $securePass)
 		}
 	}
-	Process{
-		if($Path){
-			if(Test-Path variable:global:$SESSIONVARIABLENAME){
-				if($NoNewSession){
+	Process {
+		if ($Path) {
+			if (Test-Path variable:global:$SESSIONVARIABLENAME) {
+				if ($NoNewSession) {
 					Get-Variable -Name $SESSIONVARIABLENAME -ValueOnly
 				} else {
 					Import-AtlassianSession -Path $Path
@@ -96,13 +96,13 @@ function Get-AtlassianSession {
 			} else {
 				Import-AtlassianSession -Path $Path
 			}
-		} elseif(Test-Path variable:global:$SESSIONVARIABLENAME){
+		} elseif (Test-Path variable:global:$SESSIONVARIABLENAME) {
 			Get-Variable -Name $SESSIONVARIABLENAME -ValueOnly
 		} else {
-			if(-not $NoNewSession){
+			if (-not $NoNewSession) {
 				New-AtlassianSession
 			}
 		}
 	}
-	End{}
+	End {}
 }

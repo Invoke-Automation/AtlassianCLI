@@ -7,9 +7,9 @@ $testEnvironmentAtlassianSession = 'AtlassianSession.enc.xml'
 
 function Test-TestEnvironmentConnection {
 	Param(
-		[Parameter(Mandatory=$true,Position=1)]
+		[Parameter(Mandatory = $true, Position = 1)]
 		[String] $URL,
-		[Parameter(Mandatory=$false)]
+		[Parameter(Mandatory = $false)]
 		[int] $MaxAttempts = 1
 
 	)
@@ -18,8 +18,8 @@ function Test-TestEnvironmentConnection {
 	$HTTP_Request = [System.Net.WebRequest]::Create($URL)
 	$siteOnline = $false
 	$connectionAttempts = 0
-	while((-not $siteOnline) -and ($connectionAttempts -lt $MaxAttempts)){
-		try{
+	while ((-not $siteOnline) -and ($connectionAttempts -lt $MaxAttempts)) {
+		try {
 			# We then get a response from the site.
 			$HTTP_Response = $HTTP_Request.GetResponse()
 			$siteOnline = $true

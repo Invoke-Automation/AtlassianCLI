@@ -34,7 +34,7 @@ function New-JIRAIssueType {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAIssueTypeObject {
 			Param(
@@ -43,28 +43,28 @@ function New-JIRAIssueType {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAIssueType -Property @{
-						Self = $_.self
-						Id = $_.id
-						Name = $_.name
-						Description = $_.description
-						IsSubTask = [System.Boolean]$_.subtask
-						AvatarId = $_.avatarId
-						IconUrl = $_.iconUrl
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAIssueType -Property @{
+					Self        = $_.self
+					Id          = $_.id
+					Name        = $_.name
+					Description = $_.description
+					IsSubTask   = [System.Boolean]$_.subtask
+					AvatarId    = $_.avatarId
+					IconUrl     = $_.iconUrl
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAIssueTypeObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

@@ -50,22 +50,22 @@ function Invoke-APIRequest {
 		)]
 		[AtlassianSession] $Session
 	)
-	Begin{}
-	Process{
-		if(-not $Uri.StartsWith('http')){
-			if(-not $Uri.StartsWith('/')){
+	Begin {}
+	Process {
+		if (-not $Uri.StartsWith('http')) {
+			if (-not $Uri.StartsWith('/')) {
 				$Uri = '/' + $Uri
 			}
-			$Uri = ('{0}{1}' -f $Session.Server,$Uri)
+			$Uri = ('{0}{1}' -f $Session.Server, $Uri)
 		}
-		Write-Debug -Message ('Method:{0} Uri:{1}' -f $method,$uri)
-		$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Session.Credential.UserName,([Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Session.Credential.Password))))))
-		$headers = @{Authorization=("Basic {0}" -f $base64AuthInfo)}
-		if($Body){
+		Write-Debug -Message ('Method:{0} Uri:{1}' -f $method, $uri)
+		$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Session.Credential.UserName, ([Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Session.Credential.Password))))))
+		$headers = @{Authorization = ("Basic {0}" -f $base64AuthInfo)}
+		if ($Body) {
 			Invoke-RestMethod -Headers $headers -Method $Method -Uri $Uri -Body $Body -ContentType 'application/json'
 		} else {
 			Invoke-RestMethod -Headers $headers -Method $Method -Uri $Uri
 		}
 	}
-	End{}
+	End {}
 }

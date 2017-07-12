@@ -34,7 +34,7 @@ function New-JIRAComponent {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAComponentObject {
 			Param(
@@ -43,26 +43,26 @@ function New-JIRAComponent {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAComponent -Property @{
-						Self = $_.self
-						Id = $_.id
-						Name = $_.name
-						Description = $_.description
-						IsAssigneeTypeValid = [System.Boolean]$_.isAssigneeTypeValid
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAComponent -Property @{
+					Self                = $_.self
+					Id                  = $_.id
+					Name                = $_.name
+					Description         = $_.description
+					IsAssigneeTypeValid = [System.Boolean]$_.isAssigneeTypeValid
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAComponentObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }

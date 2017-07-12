@@ -1,21 +1,21 @@
 Describe -Name "AtlassianSession" -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
-	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+	If (Test-TestEnvironmentConnection -URL $testEnvironmentURL) {
 		It 'Can create a New AtlassianSession' {
-			{ $session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential } | Should Not Throw
+			{ $session = New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential } | Should Not Throw
 		}
 		
 		It 'Returns an AtlassianSession Object' {
-			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$session = New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
 			$session.GetType() | Should Be 'AtlassianSession'
 		}
 
 		It 'Saves an AtlassianSession File' {
-			if(Test-Path $testEnvironmentAtlassianSession){
+			if (Test-Path $testEnvironmentAtlassianSession) {
 				Remove-Item $testEnvironmentAtlassianSession
 			}
-			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$session = New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
 			$session.Save($testEnvironmentAtlassianSession)
 			$testEnvironmentAtlassianSession | Should Exist
 		}
@@ -25,7 +25,7 @@ Describe -Name "AtlassianSession" -Fixture {
 		}
 
 		It 'Imports the AtlassianSession File correctly' {
-			$session =  New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
+			$session = New-AtlassianSession -Server $testEnvironmentURL -Credential $testEnvironmentCredential
 			$newSession = Get-AtlassianSession -Path $testEnvironmentAtlassianSession
 			$newSession.GetType() | Should Be 'AtlassianSession'
 			$newSession.Server | Should BeLike $session.Server
@@ -40,7 +40,7 @@ Describe -Name "AtlassianSession" -Fixture {
 Describe -Name "Get-JIRAProject" -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
-	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+	If (Test-TestEnvironmentConnection -URL $testEnvironmentURL) {
 		It 'Can Get All JIRAProject' {
 			{ $projects = Get-JIRAProject -All } | Should Not Throw
 		}
@@ -57,7 +57,7 @@ Describe -Name "Get-JIRAProject" -Fixture {
 
 		It 'Returns JIRAProject Objects' {
 			$projects = Get-JIRAProject -All
-			$projects | ForEach-Object{
+			$projects | ForEach-Object {
 				$_.GetType() | Should Be 'JIRAProject'
 			}
 		}
@@ -69,7 +69,7 @@ Describe -Name "Get-JIRAProject" -Fixture {
 Describe -Name "Get-JIRAIssue" -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
-	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+	If (Test-TestEnvironmentConnection -URL $testEnvironmentURL) {
 		It 'Can Get JIRAIssue with JQL' {
 			$project = Get-JIRAProject -All | Select-Object -First 1
 			{ $issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key) } | Should Not Throw
@@ -84,7 +84,7 @@ Describe -Name "Get-JIRAIssue" -Fixture {
 		It 'Returns JIRAProject Objects' {
 			$project = Get-JIRAProject -All | Select-Object -First 1
 			$issues = Get-JIRAIssue -Jql ('project={0}' -f $project.Key)
-			$issues | ForEach-Object{
+			$issues | ForEach-Object {
 				$_.GetType() | Should Be 'JIRAIssue'
 			}
 		}
@@ -96,7 +96,7 @@ Describe -Name "Get-JIRAIssue" -Fixture {
 Describe -Name 'Add-JIRAIssue' -Fixture {
 	. "$PSScriptRoot\TestHelpers.ps1"
 	Import-Module "$PSScriptRoot\..\AtlassianCLI" -Force
-	If(Test-TestEnvironmentConnection -URL $testEnvironmentURL){
+	If (Test-TestEnvironmentConnection -URL $testEnvironmentURL) {
 		It 'Can Add new JIRAIssue with properties using Project' {
 			$project = Get-JIRAProject -All | Select-Object -First 1
 			{$issue = Add-JIRAIssue -Project $project -IssueType 'Task' -Summary 'Test'} | Should Not Throw
@@ -115,7 +115,7 @@ Describe -Name 'Add-JIRAIssue' -Fixture {
 		It 'Returns JIRAIssue Object' {
 			$project = Get-JIRAProject -All | Select-Object -First 1
 			$issue = Add-JIRAIssue -Project $project -IssueType 'Task' -Summary 'Test'
-			$issue | ForEach-Object{
+			$issue | ForEach-Object {
 				$_.GetType() | Should Be 'JIRAIssue'
 			}
 		}

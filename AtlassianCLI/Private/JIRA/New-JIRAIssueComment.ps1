@@ -34,7 +34,7 @@ function New-JIRAIssueComment {
 		)]
 		[AtlassianSession] $Session = (Get-AtlassianSession)
 	)
-	Begin{
+	Begin {
 		# Helper Functions
 		function Get-JIRAIssueCommentObject {
 			Param(
@@ -43,28 +43,28 @@ function New-JIRAIssueComment {
 				)][System.String] $Uri
 			)
 			$method = 'GET'
-			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | %{
-					New-Object -TypeName JIRAIssueComment -Property @{
-						Self = $_.self
-						Id = $_.id
-						Author = $_.author.self | New-JIRAUser
-						UpdateAuthor = $_.updateAuthor.self | New-JIRAUser
-						Body = $_.body
-						Created = $_.created | ConvertFrom-AtlassianDateTime
-						Updated = $_.updated | ConvertFrom-AtlassianDateTime
-					}
+			Invoke-APIRequest -Method $method -Uri $Uri -Session $Session | % {
+				New-Object -TypeName JIRAIssueComment -Property @{
+					Self         = $_.self
+					Id           = $_.id
+					Author       = $_.author.self | New-JIRAUser
+					UpdateAuthor = $_.updateAuthor.self | New-JIRAUser
+					Body         = $_.body
+					Created      = $_.created | ConvertFrom-AtlassianDateTime
+					Updated      = $_.updated | ConvertFrom-AtlassianDateTime
 				}
+			}
 		}
 	}
-	Process{
-		if($Uri) {
+	Process {
+		if ($Uri) {
 			$outpuObject = Get-JIRAIssueCommentObject -Uri $Uri
 		}
-		if($outpuObject){
+		if ($outpuObject) {
 			$outpuObject
 		} else {
 			throw 'No result for request'
 		}
 	}
-	End{}
+	End {}
 }
