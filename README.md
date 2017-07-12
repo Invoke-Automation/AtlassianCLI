@@ -1,5 +1,5 @@
 ---
-URL: https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/
+URL: https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/README
 index: 0
 ---
 
