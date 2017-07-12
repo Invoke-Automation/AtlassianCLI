@@ -28,6 +28,8 @@ function Invoke-APIRequest {
 			PSObject
 			If the request returns JSON strings, Invoke-RestMethod returns a PSObject that represents the strings.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding()]
 	Param(

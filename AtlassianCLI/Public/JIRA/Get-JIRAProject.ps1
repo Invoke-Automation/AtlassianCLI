@@ -23,10 +23,12 @@ function Get-JIRAProject {
 			JIRAProject
 			Returns one or more JIRAProject objects.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAProject"
+		HelpURI="https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-JIRAProject"
 	)]
 	Param(
 		[Parameter(

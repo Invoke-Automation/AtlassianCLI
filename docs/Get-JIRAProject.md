@@ -1,6 +1,6 @@
 ---
 external help file: AtlassianCLI-help.xml
-online version: "https://invoke-automation.github.io/AtlassianCLI/Get-JIRAProject"
+online version: http://docs.invoke-automation.com
 schema: 2.0.0
 ---
 
@@ -13,17 +13,17 @@ Get one or more JIRAProject objects.
 
 ### Key
 ```
-Get-JIRAProject -Key <String> [-Session <AtlassianSession>] [<CommonParameters>]
+Get-JIRAProject -Key <String> [-Session <AtlassianSession>]
 ```
 
 ### Name
 ```
-Get-JIRAProject -Name <String> [-Session <AtlassianSession>] [<CommonParameters>]
+Get-JIRAProject -Name <String> [-Session <AtlassianSession>]
 ```
 
 ### All
 ```
-Get-JIRAProject [-All] [-Session <AtlassianSession>] [<CommonParameters>]
+Get-JIRAProject [-All] [-Session <AtlassianSession>]
 ```
 
 ## DESCRIPTION
@@ -101,9 +101,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
 
 ### None
@@ -117,4 +114,6 @@ Returns one or more JIRAProject objects.
 ## NOTES
 
 ## RELATED LINKS
+
+[http://docs.invoke-automation.com](http://docs.invoke-automation.com)
 

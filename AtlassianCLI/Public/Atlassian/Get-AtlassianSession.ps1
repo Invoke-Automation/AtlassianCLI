@@ -21,10 +21,12 @@ function Get-AtlassianSession {
 		.NOTES
 			The AtlassianSession object has a Save(<Path>) method that can be called to save an encrypted session file to disk.
 			Encrypted session files can only be used by the same user account.
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-AtlassianSession"
+		HelpURI="https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-AtlassianSession"
 	)]
 	Param(
 		[Parameter(

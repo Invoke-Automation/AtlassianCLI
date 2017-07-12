@@ -21,10 +21,12 @@ function Get-JIRAIssue {
 			JIRAIssue
 			Returns one or more JIRAIssue objects.
 		.NOTES
+		.LINK
+			http://docs.invoke-automation.com
 	#>
 	[CmdletBinding(
 		#SupportsShouldProcess=$true,
-		HelpURI="https://invoke-automation.github.io/AtlassianCLI/Get-JIRAIssue"
+		HelpURI="https://invoke-automation.github.io/Invoke-Documentation/projects/AtlassianCLI/docs/Get-JIRAIssue"
 	)]
 	Param(
 		[Parameter(
